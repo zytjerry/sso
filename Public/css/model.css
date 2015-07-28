@@ -1,0 +1,150 @@
+@CHARSET "UTF-8";
+.validateTips {
+	background-color:#FFFFFF;
+    border:1px solid #f00;
+    color:#F00000;
+    margin:10px auto;	
+    padding:5px;
+    text-align:center;
+    width:98%;
+	display: none;
+	line-height:20px;
+}
+.bill-table {
+	width: 100%;
+    border-collapse: collapse;
+}
+.bill-head-title {
+	font-weight: bold;
+	text-align: center;
+    background: none repeat scroll 0 0 #DBEFFE;
+	border: 1px solid #E9E9E9;
+	margin: 5px 0px;
+}
+
+.bill-title {
+	width: 105px;
+	text-align: right;
+	font-weight: bold;
+}
+.bill-table td {
+	height:26px;
+	border: 1px solid #E9E9E9;
+    padding: 6px 10px;
+    line-height: 16px;
+}
+.bill-right {
+	text-align: left;
+	min-width: 90px;
+}
+.bill{ 
+    width: 99.8%    
+    border:1px solid #CCCCCC;
+    background-color: #F2F8FD;
+}
+.bill-head { 
+    width: 100%; 
+    float: left;
+    height:30px;    
+    background-color: #B4DBED;    
+}
+.bill-head-tip {
+    float: left;
+    text-align: left;
+    text-indent: 10px;
+    height:30px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.bill-item { 
+    width:33%; 
+    float:left;     
+}
+
+.bill-item-left {     
+    width:40%; 
+    float:left; 
+    text-align:right;
+    height:35px;
+    line-height:35px;
+    font-weight:bold;	
+    word-wrap:break-word; 
+	overflow:hidden;
+}
+.bill-item-right {     
+    width:60%; 
+    float:left; 
+    text-align:left; 
+    height:35px;
+    line-height:35px;
+    text-indent:5px;
+    word-wrap:break-word; 
+	overflow:show;
+}
+
+.bill-item-right input.text {
+	width: 70%;
+	padding: 0.3em;
+	margin-top:5px;
+}
+
+.bill-item-right textarea {
+	width: 80%;
+	padding: 0.3em;
+	margin-top:5px;
+}
+
+.bill-item-right select {
+	margin-top: 2px;
+}
+label {
+	display: inline-block;
+	text-align: right;
+	width: 100px;
+}
+input[type="text"],input[type="password"] {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	color: #555555;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 10px;
+	transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+	vertical-align: middle;
+}
+select {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	color: #555;
+	height: 30px;
+	padding: 5px 6px;
+	vertical-align: middle;
+}
+
+table{border-collapse:collapse; width:100%;}
+table th,table td{padding:7px;}
+table th{background:#F3F3F3;}
+.column table .num { }
+.column table .url { width: 150px; }
+.column table .plate { width: 100px; }
+.column table .theme { width: 100px; }
+.column table { border: 1px solid #E1E1E1; border-collapse: collapse; font-size: 14px; width: 100%; }
+.column table td, .column table th { border: 1px solid #E1E1E1; }
+.column table tbody tr { border-bottom: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8; }
+.column table tbody td { color: #333; line-height: 25px; white-space: nowrap; }
+.column table thead th { background: linear-gradient(bottom, #F3F3F3, #FAFAFA) repeat scroll 0 0 transparent; background: -moz-linear-gradient(bottom, #F3F3F3, #FAFAFA) repeat scroll 0 0 transparent; background: -o-linear-gradient(bottom, #F3F3F3, #FAFAFA) repeat scroll 0 0 transparent; background: -webkit-linear-gradient(bottom, #F3F3F3, #FAFAFA) repeat; background: -ms-linear-gradient(bottom, #F3F3F3, #FAFAFA) repeat scroll 0 0 transparent; box-shadow: 0 1px 0 #FFFFFF inset; color: #444444; cursor: pointer; line-height: 19px; padding: 8px; text-align: left; white-space: nowrap; }
+.column table tfoot td { background: none repeat scroll 0 0 #FAFAFA; border-top: 1px solid #E1E1E1;color: #777777; font-weight: 700; line-height: 19px; padding: 7px 8px; }
+.column table .num { text-align: center; }
+.column table thead .hover { background: none repeat scroll 0 0 #EAEAEA; box-shadow: none; }
+.column table thead .visited { background: none repeat scroll 0 0 #EAEAEA; box-shadow: none; }
+.column table thead .thead_col th { background: none repeat scroll 0 0 #FFFFFF; }
+
+/*分页*/
+.page { border-color: #D7D7D7 #D6D6D6; border-style: solid; border-width: 1px; float: right; font-size: 0; height: 35px; margin:15px 0px;}
+.page a, .page span, .page strong { display: inline-block; font-family: "Tahoma"; font-size: 12px; height: 26px; padding: 7px 12px 0; }
+.page a:link, .page a:visited { color: #686868; text-decoration: none; }
+.page a:active, .page a:hover { background-color: #FEFEFE; background-image: -moz-linear-gradient(center top, #FAFAFA, #ECECEC); background-repeat: repeat-x; border-left: 1px solid #D6D6D6; border-right: 1px solid #D6D6D6; height: 26px; padding: 9px 11px 0; text-decoration: none; }
+.page .current { border-left: 1px solid #D6D6D6; border-right: 1px solid #D6D6D6; border-top: 2px solid #37ADF0; color: #333333; font-weight: 700; height: 26px; margin-top: -1px; padding: 8px 11px 0; }
+ 

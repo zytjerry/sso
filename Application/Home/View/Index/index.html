@@ -1,0 +1,190 @@
+<html>
+<include file="Public:header"/>
+<div class="toolbar cf" style="margin:18px 70px;">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">			
+				<form action="/" method="post" class="fl">
+					用户名: 
+					<input type="text" name="username" value="{$param.username}" style="width:95px;"/>&nbsp;&nbsp;
+                   	站点: 
+					<input type="text" name="web_site" value="{$param.callback_url}" style="width:95px;"/>&nbsp;&nbsp;
+					<input type="submit"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="搜索">
+					&nbsp;&nbsp;
+					<input type="button"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="新建" onclick="ModifyWebSite('')">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div style="margin:10px 35px;">
+	<div class="column cf datashow">
+		<table  width="70%" cellpadding="5" cellspacing="3" class="contab">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>用户</th>
+					<th>Appid</th>
+					<th>Appkey</th>
+					<th>简述</th>
+					<th>回调地址</th>
+					<th>状态</th>
+					<th>创建时间</th>	
+					<th>修改时间</th>	
+					<th>操作</th>	
+				</tr>
+			</thead>		
+			<tbody class="dataTab">
+				<foreach name="apply_list" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.username}</td>
+						<td>{$vo.appid}</td>
+						<td>{$vo.appkey}</td>
+						<td>{$vo.desc}</td>
+						<td>{$vo.callback_url}</td>
+						<td><if condition="$vo.status eq 1">正常<else/>禁用</if></td>
+						<td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+						<td>{$vo.update_time|date="Y-m-d H:i:s",###}</td>
+						<td>
+							<input type="button"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="删除" onclick="delWeb({$vo.id})">
+							&nbsp;|&nbsp;
+							<input type="button"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="编辑" onclick="ModifyWebSite({$vo.id})">
+						</td>
+					</tr>	
+				</foreach>
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pageLink}</div>	
+</div>
+<!-- 编辑站点 -->
+<div id="web_dlg" style="display: none;" title="编辑站点信息">
+    <div class="validateTips" id="webTips" style="display:none;"></div>
+    <form name="webForm" id="webForm" method="post" action="" target="_blank">
+    	<input type="hidden" name="id" id="id" value="" />
+        <div class="bill">
+        	<div style="width: 100%;margin-top:10px;" class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">Appid：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <input type="text" id="appid" name="appid" style="width:220px;"/>
+                </div>
+            </div>
+            <div style="width: 100%;margin-top:10px;" class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">回调地址：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <input type="text" id="callback_url" name="callback_url" style="width:220px;"/>
+                </div>
+            </div>
+            <div style="width: 100%;margin-top:10px;" class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">简述：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <input type="text" id="desc" name="desc" style="width:220px;"/>
+                </div>
+            </div>
+        	<div style="width: 100%;margin-top:10px;" class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">状态：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <select name="status" id="status">
+                   		<option value="1">正常</option>
+	                	<option value="0">禁用</option>
+                	</select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script language='javascript'>
+function ModifyWebSite(id){
+	if( !isNaN(id) )  { //修改
+		$.ajax({
+			type: 'post',
+			url: '{:U("Index/getOne")}',
+			data: {'id':id},
+			async: true,
+			dataType: 'json', 
+			success: function(data) {
+				if (data.status == 1) {
+					$.each(data.webser_info, function(i, v){
+						if(i== 'status') { //编辑框赋值
+							$("#"+i).find("option[value="+v+"]").attr("selected", true);
+						}else{
+							$("input[name='"+i+"']").val(v);
+						}
+					});
+				} 
+			}
+		});
+	}
+	$('#web_dlg').dialog({	   
+	    autoOpen: true,
+		modal: true,
+        show:'slide',
+        hide:'slide',
+        title: '编辑站点信息',
+		resizable: false,
+		height:375,	
+		width: 550,
+		buttons:{
+	    	'关闭': function() {
+	    		$('#web_dlg').dialog('close');
+			 },
+			'确定': function() {
+				$.ajax({
+					type: 'post',
+					url: '{:U("Index/createWebSite")}',
+					data: $('#webForm').serializeArray(),
+					async: true,
+					dataType: 'json', //xml, json, script or html
+					success: function(data) {
+						if (data.status == 1) {
+							$('#web_dlg').dialog('close');
+							//修改密码重新登录系统
+							location.href = '/';
+						} else {
+							message('webTips', data.info);
+						}
+					}
+				});
+			}
+		}	 
+	});
+}
+function delWeb(id){
+	$('#dialog-confirm').dialog({
+		modal: true,
+		show:"slide",
+	    hide:"slide",
+        title: '温馨提示',
+		resizable: true,
+		height:140,	   
+		buttons:{
+    	'关闭': function() {
+			$(this).dialog('close');
+		 },
+		'确定': function() {
+				$.ajax({
+					type:'POST',
+					url: '{:U("Index/delWeb")}',
+					data:{'id':id},
+					async:false,
+					dataType: 'json',
+					cache:false,
+					success:function(data){
+						if(data.status != 1){
+							$("#dialog-confirm").dialog('close');
+							dlgMsg('删除失败！');
+						}else{
+							$("#dialog-confirm").dialog('close');
+							location.href = '/';
+						}
+					}
+				});
+			}
+		}	 
+	});
+}
+</script>
